@@ -1,17 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 
-const userHand = { 
-  "card1": { "value" : 'A', "suit" : 'H'}, 
-  "card2": { "value" : 'A', "suit" : 'D'},
-  
-}
-
-const handToDecision = (hand) => {
-  
-  return "Fold";
-}
-
 const valToIndex = {
 	'A' : 0,
 	'K' : 1,
@@ -25,7 +14,7 @@ const valToIndex = {
 	'5' : 9,
 	'4' : 10,
 	'3' : 11,
-	'2' : 12,
+	'2' : 12
 }
 
 const handChart = [
@@ -42,8 +31,26 @@ const handChart = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-]
+];
 
+const userHand = { 
+  "card1": { "value" : 'A', "suit" : 'H'}, 
+  "card2": { "value" : 'A', "suit" : 'D'}
+}
+
+const handToDecision = (hand) => {
+  let indices = ([valToIndex[hand.card1.value], valToIndex[hand.card2.value]]).sort();
+  if (hand.card1.suit !== hand.card2.suit) {
+	  if (handChart[indices[1]][indices[0]]) {
+		  return "Shove";
+	  }
+	  return "Fold";
+  }
+  if (handChart[indices[0]][indices[1]]) {
+	  return "Shove";
+  }
+  return "Fold";
+}  
 
 const App = () => {
   return (
