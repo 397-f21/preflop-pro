@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.UserInput {
+    width: 70px;
+    height: 40px;
+    font-size: 30px;
+}
+
+#suit-input {
+    width: 70px;
+    height: 40px;
+    font-size: 30px;
+}
