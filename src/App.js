@@ -1,7 +1,9 @@
-import logo from './logo.svg';
-import {HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit} from './Globals.js'
+import {cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit} from './Globals.js'
 import React, { useState } from 'react';
+import { render } from 'react-dom';
+import { ReactSVG } from 'react-svg';
 import './App.css';
+import svg from "./svg-cards/svg-cards.svg";
 
 const defaultUserHand = {
   "card1": { "value": '2', "suit": 'D' },
@@ -27,17 +29,24 @@ const CardArea = ({setUserHand, cardNum, userHand}) => (
 	</div>
 );
 
+const getPicture = (card) => {
+  const name = cardToName(card)
+  const path = `${svg}#${name}`
+
+  return <svg width={170} height={245} transform={"scale(0.9)"}><use xlinkHref={path} /></svg>
+}
+
 const App = () => {
   const [userHand, setUserHand] = useState(defaultUserHand);
   
   return (
     <div className="App">
-	    <h1>Preflop Pro :)</h1>
+	    <h1>Preflop Pro</h1>
       <CardArea setUserHand = {setUserHand} cardNum={1} userHand = {userHand}/>
 	    <CardArea setUserHand = {setUserHand} cardNum={2} userHand = {userHand}/>
-      <img src={'./cards/1B.svg'} width={100} height={200}/>
-      <h1>Card 1: {userHand.card1.value}{userHand.card1.suit}</h1>
-      <h1>Card 2: {userHand.card2.value}{userHand.card2.suit}</h1>
+      {getPicture(userHand.card1)}
+      {getPicture(userHand.card2)}
+      <ReactSVG path={`${svg}#black_joker`} evalScripts="always" svgClassName="svg-class-name" className="wrapper-class-name" svgStyle={{width: 200}}/>
       <h1>Action: {HandToDecision(userHand)}!</h1>
     </div>
   );

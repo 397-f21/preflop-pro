@@ -17,6 +17,33 @@ const valToIndex = {
     '2': 12
   }
 
+const valToName = {
+    'A': "1",
+    'K': "king",
+    'Q': "queen",
+    'J': "jack",
+    'T': "10",
+    '9': "9",
+    '8': "8",
+    '7': "7",
+    '6': "6",
+    '5': "5",
+    '4': "4",
+    '3': "3",
+    '2': "2",
+}
+
+const suitToName = {
+    'C': "club",
+    'D': "diamond",
+    'H': "heart",
+    'S': "spade"
+}
+
+export const cardToName = (card) => {
+    return suitToName[card.suit] + "_" + valToName[card.value] 
+} 
+
 // https://www.mypokercoaching.com/push-fold-chart/
 // Shove - No Ante - 10 BB - Hi-Jack
 const handChart = [
@@ -103,4 +130,4 @@ export const setSuit = (suit, userHand, setUserHand, cardNum) => {
     }
 }
 
-export default {HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit};
+export default {cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit};
