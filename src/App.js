@@ -1,8 +1,7 @@
 import logo from './logo.svg';
-import {HandToDecision, getRank, setRank, getSuit, setSuit} from './Globals.js'
+import {HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit} from './Globals.js'
 import React, { useState } from 'react';
 import './App.css';
-import { getByDisplayValue } from '@testing-library/dom';
 
 const defaultUserHand = {
   "card1": { "value": '2', "suit": 'D' },
@@ -11,27 +10,13 @@ const defaultUserHand = {
 
 const SuitDropDown = ({setUserHand, cardNum, userHand}) => (
   <select id={"suit-input-"+cardNum} value={getSuit(userHand, cardNum)} onChange = {(e) => setSuit(e.target.value, userHand, setUserHand, cardNum)}>
-    <option value="C">&#9827;</option>
-    <option value="D">&#9830;</option>
-    <option value="H">&hearts;</option>
-    <option value="S">&#9824;</option>
+    {genSuits(cardNum, userHand)}
   </select>
 )
 
 const RankDropDown = ({setUserHand, cardNum, userHand}) => (
   <select id={"rank-input-"+cardNum} value={getRank(userHand, cardNum)} onChange = {(e) => setRank(e.target.value, userHand, setUserHand, cardNum)}>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="J">J</option>
-    <option value="Q">Q</option>
-    <option value="K">K</option>
-    <option value="A">A</option>
+    {genRanks(cardNum, userHand)}
   </select>
 )
 

@@ -1,3 +1,5 @@
+const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
+const suits = ['C', 'D', 'H', 'S']
 
 const valToIndex = {
     'A': 0,
@@ -47,6 +49,13 @@ export function HandToDecision(hand) {
   return "Fold";
 }
 
+export const genRanks = (cardNum, userHand) => {
+    if (cardNum === 1) {
+      return ranks.filter(r => !((r === userHand.card2.value) && (userHand.card1.suit === userHand.card2.suit))).map((curr) => <option value={curr}>{curr}</option>)
+    } 
+    return ranks.filter(r => !((r === userHand.card1.value) && (userHand.card1.suit === userHand.card2.suit))).map((curr) => <option value={curr}>{curr}</option>)
+}
+
 export const getRank = (userHand, cardNum) => {
     if (cardNum === 1) {
       return userHand.card1.value;
@@ -60,6 +69,23 @@ export const setRank = (val, userHand, setUserHand, cardNum) => {
     } else {
       setUserHand({"card2": {"value": val, "suit": userHand.card2.suit}, "card1": userHand.card1})
     }
+}
+
+const suitsToEmojiJSX = {
+    'C': <option value="C">&#9827;</option>,
+    'D': <option value="D">&#9830;</option>,
+    'H': <option value="H">&hearts;</option>,
+    'S': <option value="S">&#9824;</option>,
+}
+
+export const genSuits = (cardNum, userHand) => {
+    if (userHand.card1.value === userHand.card2.value) {
+        if (cardNum === 1) {
+            return suits.filter(s => s !== userHand.card2.suit).map(s => suitsToEmojiJSX[s])
+        }
+        return suits.filter(s => s !== userHand.card1.suit).map(s => suitsToEmojiJSX[s])
+    }
+    return suits.map(suit => suitsToEmojiJSX[suit])
 }
   
 export const getSuit = (userHand, cardNum) => {
@@ -77,4 +103,4 @@ export const setSuit = (suit, userHand, setUserHand, cardNum) => {
     }
 }
 
-export default {HandToDecision, getRank, setRank, getSuit, setSuit};
+export default {HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit};
