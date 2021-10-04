@@ -1,7 +1,5 @@
 import {cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit} from './Globals.js'
 import React, { useState } from 'react';
-import { render } from 'react-dom';
-import { ReactSVG } from 'react-svg';
 import './App.css';
 import svg from "./svg-cards/svg-cards.svg";
 
@@ -46,7 +44,6 @@ const App = () => {
 	    <CardArea setUserHand = {setUserHand} cardNum={2} userHand = {userHand}/>
       {getPicture(userHand.card1)}
       {getPicture(userHand.card2)}
-      <ReactSVG path={`${svg}#black_joker`} evalScripts="always" svgClassName="svg-class-name" className="wrapper-class-name" svgStyle={{width: 200}}/>
       <h1>Action: {HandToDecision(userHand)}!</h1>
     </div>
   );
