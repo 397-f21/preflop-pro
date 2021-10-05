@@ -37,14 +37,14 @@
   }
 }
 
-.UserInput {
-    width: 70px;
-    height: 40px;
-    font-size: 30px;
-}
+/* .row:after {
+    content: "";
+    display: table;
+    clear: both;
+} */
 
-#suit-input {
-    width: 70px;
-    height: 40px;
-    font-size: 30px;
-}
+.wrapper {
+    width: 60%;
+    /* padding: 10px; */
+  }
+  
