@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: darkgreen;
+  height: 100vh;
 }
 
 .App-logo {
@@ -35,4 +37,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #F8F8F8;
+}
+
+.DropDown {
+  width: 500em;
+}
+
+.wrapper {
+    width: 60%;
 }

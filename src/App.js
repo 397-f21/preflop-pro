@@ -1,30 +1,59 @@
-import {
-  cardToName, HandToDecision,
-  genRanks, getRank, setRank,
-  genSuits, getSuit, setSuit, useWindowDimensions
-} from './Globals.js'
-import React, { useState } from 'react';
+import { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions } from './Globals.js'
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
-// import { Select } from '@material-ui/core';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import svg from "./svg-cards/svg-cards.svg";
+
+import styled from 'styled-components';
+
+const Select = styled.select`
+  width: 100%;
+  height: 35px;
+  background: white;
+  color: gray;
+  padding-left: 5px;
+  font-size: 14px;
+  border: none;
+  margin-left: 10px;
+
+  option {
+    color: black;
+    background: white;
+    display: flex;
+    white-space: pre;
+    min-height: 20px;
+    padding: 0px 2px 1px;
+  }
+`;
 
 const defaultUserHand = {
   "card1": { "value": '2', "suit": 'D' },
   "card2": { "value": '7', "suit": 'H' }
 }
 
-const SuitDropDown = ({ setUserHand, cardNum, userHand }) => (
-  <select id={"suit-input-" + cardNum} value={getSuit(userHand, cardNum)} onChange={(e) => setSuit(e.target.value, userHand, setUserHand, cardNum)}>
-    {genSuits(cardNum, userHand)}
-  </select>
-)
+const getCardFromHand = (hand, cardNum) => {
+  return hand["card"+cardNum];
+}
+
+const StyledSelect = styled("select");
+
+const SuitDropDown = ({ setUserHand, cardNum, userHand }) => {
+  const [suitOptionList, setSuitOptionList] = useState(genSuits(cardNum, userHand));
+  useEffect(() => {
+    setSuitOptionList(genSuits(cardNum, userHand))
+  }, [userHand]);
+  return (
+    <Select id={"suit-input-" + cardNum} defaultValue={5} onChange={(e) => { setSuit(e.target.value, userHand, setUserHand, cardNum)} }>
+      {suitOptionList}
+    </Select>
+  );
+}
 
 const RankDropDown = ({ setUserHand, cardNum, userHand }) => (
-  <select id={"rank-input-" + cardNum} value={getRank(userHand, cardNum)} onChange={(e) => setRank(e.target.value, userHand, setUserHand, cardNum)}>
+  <Select id={"rank-input-" + cardNum} value={getRank(userHand, cardNum)} onChange={(e) => setRank(e.target.value, userHand, setUserHand, cardNum)}>
     {genRanks(cardNum, userHand)}
-  </select>
+  </Select>
 )
 
 const CardArea = ({ setUserHand, cardNum, userHand }) => (
@@ -36,6 +65,7 @@ const CardArea = ({ setUserHand, cardNum, userHand }) => (
 
 const getPicture = (card, card_width) => {
   const name = cardToName(card)
+
   const path = `${svg}#${name}`
   return <svg width={170} height={245} transform={card_width}><use xlinkHref={path} /></svg>
 }
