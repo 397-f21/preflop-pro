@@ -1,4 +1,4 @@
-import { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit,  } from './Globals.js'
+import { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions } from './Globals.js'
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
@@ -63,15 +63,20 @@ const CardArea = ({ setUserHand, cardNum, userHand }) => (
   </div>
 );
 
-const getPicture = (card) => {
-  const name = cardToName(card);
-  const path = `${svg}#${name}`
+const getPicture = (card, card_width) => {
+  const name = cardToName(card)
 
-  return <svg width={170} height={245} transform={"scale(0.4)"}><use xlinkHref={path} /></svg>
+  const path = `${svg}#${name}`
+  return <svg width={170} height={245} transform={card_width}><use xlinkHref={path} /></svg>
 }
 
 const App = () => {
   const [userHand, setUserHand] = useState(defaultUserHand);
+  const { height, width } = useWindowDimensions();
+  var card_ratio
+  if (width > 800) { card_ratio = 800 / 1000; } // avoid card being too large
+  else { card_ratio = (width / 1000) }
+  const card_width = "scale(" + (card_ratio.toString()) + ")"
 
   return (
     <div className="App">
@@ -79,12 +84,12 @@ const App = () => {
       <div className="row justify-content-center">
         <div className="col-3">
           <h4>Card 1</h4>
-          {getPicture(userHand.card1)}
+          {getPicture(userHand.card1, card_width)}
           <CardArea setUserHand={setUserHand} cardNum={1} userHand={userHand} />
         </div>
         <div className="col-3">
           <h4>Card 2</h4>
-          {getPicture(userHand.card2)}
+          {getPicture(userHand.card2, card_width)}
           <CardArea setUserHand={setUserHand} cardNum={2} userHand={userHand} />
         </div>
       </div>

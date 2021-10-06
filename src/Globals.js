@@ -1,65 +1,67 @@
+import React, { useState, useEffect } from 'react';
+
 const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
 const suits = ['C', 'D', 'H', 'S']
 
 const valToIndex = {
-    'A': 0,
-    'K': 1,
-    'Q': 2,
-    'J': 3,
-    'T': 4,
-    '9': 5,
-    '8': 6,
-    '7': 7,
-    '6': 8,
-    '5': 9,
-    '4': 10,
-    '3': 11,
-    '2': 12
-  }
+  'A': 0,
+  'K': 1,
+  'Q': 2,
+  'J': 3,
+  'T': 4,
+  '9': 5,
+  '8': 6,
+  '7': 7,
+  '6': 8,
+  '5': 9,
+  '4': 10,
+  '3': 11,
+  '2': 12
+}
 
 const valToName = {
-    'A': "1",
-    'K': "king",
-    'Q': "queen",
-    'J': "jack",
-    'T': "10",
-    '9': "9",
-    '8': "8",
-    '7': "7",
-    '6': "6",
-    '5': "5",
-    '4': "4",
-    '3': "3",
-    '2': "2",
+  'A': "1",
+  'K': "king",
+  'Q': "queen",
+  'J': "jack",
+  'T': "10",
+  '9': "9",
+  '8': "8",
+  '7': "7",
+  '6': "6",
+  '5': "5",
+  '4': "4",
+  '3': "3",
+  '2': "2",
 }
 
 const suitToName = {
-    'C': "club",
-    'D': "diamond",
-    'H': "heart",
-    'S': "spade"
+  'C': "club",
+  'D': "diamond",
+  'H': "heart",
+  'S': "spade"
 }
 
 export const cardToName = (card) => {
-    return suitToName[card.suit] + "_" + valToName[card.value] 
-} 
+  return suitToName[card.suit] + "_" + valToName[card.value]
+}
 
 // https://www.mypokercoaching.com/push-fold-chart/
 // Shove - No Ante - 10 BB - Hi-Jack
 const handChart = [
-	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	[1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-	[1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-	[1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-	[1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-	[1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+  [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+  [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+  [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+  [1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+  [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
 ];
 
 export function HandToDecision(hand) {
@@ -84,18 +86,18 @@ export const genRanks = (cardNum, userHand) => {
 }
 
 export const getRank = (userHand, cardNum) => {
-    if (cardNum === 1) {
-      return userHand.card1.value;
-    } 
-    return userHand.card2.value;
+  if (cardNum === 1) {
+    return userHand.card1.value;
+  }
+  return userHand.card2.value;
 }
-  
+
 export const setRank = (val, userHand, setUserHand, cardNum) => {
-    if (cardNum === 1) {
-      setUserHand({"card1": {"value": val, "suit": userHand.card1.suit}, "card2": userHand.card2})
-    } else {
-      setUserHand({"card2": {"value": val, "suit": userHand.card2.suit}, "card1": userHand.card1})
-    }
+  if (cardNum === 1) {
+    setUserHand({ "card1": { "value": val, "suit": userHand.card1.suit }, "card2": userHand.card2 })
+  } else {
+    setUserHand({ "card2": { "value": val, "suit": userHand.card2.suit }, "card1": userHand.card1 })
+  }
 }
 
 const suitsToEmojiJSX = {
@@ -106,28 +108,53 @@ const suitsToEmojiJSX = {
 }
 
 export const genSuits = (cardNum, userHand) => {
-    if (userHand.card1.value === userHand.card2.value) {
-        if (cardNum === 1) {
-            return suits.filter(s => s !== userHand.card2.suit).map(s => suitsToEmojiJSX[s])
-        }
-        return suits.filter(s => s !== userHand.card1.suit).map(s => suitsToEmojiJSX[s])
-    }
-    return suits.map(s => suitsToEmojiJSX[s]);
-}
-  
-export const getSuit = (userHand, cardNum) => {
+  if (userHand.card1.value === userHand.card2.value) {
     if (cardNum === 1) {
-      return userHand.card1.suit;
-    } 
-    return userHand.card2.suit;
-}
-  
-export const setSuit = (suit, userHand, setUserHand, cardNum) => {
-    if (cardNum === 1) {
-      setUserHand({"card1": {"value": userHand.card1.value, "suit": suit}, "card2": userHand.card2})
-    } else {
-      setUserHand({"card2": {"value": userHand.card2.value, "suit": suit}, "card1": userHand.card1})
+      return suits.filter(s => s !== userHand.card2.suit).map(s => suitsToEmojiJSX[s])
     }
+    return suits.filter(s => s !== userHand.card1.suit).map(s => suitsToEmojiJSX[s])
+  }
+  return suits.map(suit => suitsToEmojiJSX[suit])
 }
 
-export default {cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit};
+export const getSuit = (userHand, cardNum) => {
+  if (cardNum === 1) {
+    return userHand.card1.suit;
+  }
+  return userHand.card2.suit;
+}
+
+export const setSuit = (suit, userHand, setUserHand, cardNum) => {
+  if (cardNum === 1) {
+    setUserHand({ "card1": { "value": userHand.card1.value, "suit": suit }, "card2": userHand.card2 })
+  } else {
+    setUserHand({ "card2": { "value": userHand.card2.value, "suit": suit }, "card1": userHand.card1 })
+  }
+}
+
+/* Utility function to monitor (adjustable) screen width */
+/* reference: https://stackoverflow.com/a/36862446 */
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+export const useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
+export default { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions };
