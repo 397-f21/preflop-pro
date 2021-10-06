@@ -55,3 +55,7 @@ h6 {
 .wrapper {
     width: 60%;
 }
+
+svg {
+  margin-bottom: 10px;
+}

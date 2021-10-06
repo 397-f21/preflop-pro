@@ -8,14 +8,16 @@ import svg from "./svg-cards/svg-cards.svg";
 import styled from 'styled-components';
 
 const Select = styled.select`
-  width: 100%;
+  width: 50%;
   height: 35px;
   background: white;
   color: gray;
   padding-left: 5px;
+  padding-top: 100px;
   font-size: 14px;
   border: none;
-  margin-left: 10px;
+  margin-left: 0px;
+  margin-top: 0px;
 
   option {
     color: black;
@@ -59,6 +61,7 @@ const RankDropDown = ({ setUserHand, cardNum, userHand }) => (
 const CardArea = ({ setUserHand, cardNum, userHand }) => (
   <div>
     <SuitDropDown setUserHand={setUserHand} cardNum={cardNum} userHand={userHand} />
+    <br/>
     <RankDropDown setUserHand={setUserHand} cardNum={cardNum} userHand={userHand} />
   </div>
 );
@@ -85,11 +88,13 @@ const App = () => {
         <div className="col-3">
           <h4>Card 1</h4>
           {getPicture(userHand.card1, card_width)}
+          <br/>
           <CardArea setUserHand={setUserHand} cardNum={1} userHand={userHand} />
         </div>
         <div className="col-3">
           <h4>Card 2</h4>
           {getPicture(userHand.card2, card_width)}
+          <br/>
           <CardArea setUserHand={setUserHand} cardNum={2} userHand={userHand} />
         </div>
       </div>
