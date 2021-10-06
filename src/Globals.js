@@ -107,6 +107,13 @@ const suitsToEmojiJSX = {
     'S': <option value="S" key="S">&#9824;</option>,
 }
 
+const suitsToJSX = {
+  'C': <option value="C" key="C">C</option>,
+  'D': <option value="D" key="D">D</option>,
+  'H': <option value="H" key="H">H</option>,
+  'S': <option value="S" key="S">S</option>,
+}
+
 export const genSuits = (cardNum, userHand) => {
   if (userHand.card1.value === userHand.card2.value) {
     if (cardNum === 1) {

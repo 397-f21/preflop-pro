@@ -9,15 +9,16 @@ import styled from 'styled-components';
 
 const Select = styled.select`
   width: 50%;
-  height: 35px;
+  height: 2em;
   background: white;
   color: gray;
   padding-left: 5px;
-  padding-top: 100px;
+  padding-top: 0px;
   font-size: 14px;
   border: none;
   margin-left: 0px;
   margin-top: 0px;
+  text-align: top;
 
   option {
     color: black;
@@ -25,6 +26,7 @@ const Select = styled.select`
     display: flex;
     white-space: pre;
     min-height: 20px;
+    min-width: 50em;
     padding: 0px 2px 1px;
   }
 `;
@@ -70,7 +72,7 @@ const getPicture = (card, card_width) => {
   const name = cardToName(card)
 
   const path = `${svg}#${name}`
-  return <svg width={170} height={245} transform={card_width}><use xlinkHref={path} /></svg>
+  return <svg width={170} height={245} transform={card_width} ><use xlinkHref={path} /></svg>
 }
 
 const App = () => {
