@@ -48,7 +48,7 @@ const SuitDropDown = ({ setUserHand, cardNum, userHand }) => {
     setSuitOptionList(genSuits(cardNum, userHand))
   }, [userHand]);
   return (
-    <Select id={"suit-input-" + cardNum} defaultValue={5} onChange={(e) => { setSuit(e.target.value, userHand, setUserHand, cardNum)} }>
+    <Select id={"suit-input-" + cardNum} value={getSuit(userHand, cardNum)} onChange={(e) => { setSuit(e.target.value, userHand, setUserHand, cardNum)} }>
       {suitOptionList}
     </Select>
   );
