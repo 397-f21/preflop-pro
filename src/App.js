@@ -46,7 +46,7 @@ const SuitDropDown = ({ setUserHand, cardNum, userHand }) => {
   const [suitOptionList, setSuitOptionList] = useState(genSuits(cardNum, userHand));
   useEffect(() => {
     setSuitOptionList(genSuits(cardNum, userHand))
-  }, [userHand]);
+  }, [userHand, cardNum]);
   return (
     <Select id={"suit-input-" + cardNum} value={getSuit(userHand, cardNum)} onChange={(e) => { setSuit(e.target.value, userHand, setUserHand, cardNum)} }>
       {suitOptionList}
@@ -68,40 +68,81 @@ const CardArea = ({ setUserHand, cardNum, userHand }) => (
   </div>
 );
 
-const getPicture = (card, card_width) => {
+const cardClicked = (cardNum, setMode, setCardToSet) => {
+  setMode("suit");
+  setCardToSet(cardNum);
+}
+
+const suitClicked = (suit, cardNum) => {
+  setMode("val");
+  setUserHand(); // set suit of the correct card to be the suit we just clicked, and keep the other card the same
+}
+
+const getPicture = (card, card_width, cardNum, setMode, setCardToSet) => {
   const name = cardToName(card)
 
   const path = `${svg}#${name}`
-  return <svg width={170} height={245} transform={card_width} ><use xlinkHref={path} /></svg>
+  return <svg width={170} height={245} transform={card_width} onClick={() => cardClicked(cardNum, setMode, setCardToSet) }> ><use xlinkHref={path} /></svg>
+}
+
+const SuitButton = () => {
+  return (
+    <button onClick={}/>
+  );
 }
 
 const App = () => {
   const [userHand, setUserHand] = useState(defaultUserHand);
+  // modes (what screen we're on): main for main screen, suit for selecting suit, val for selecting value
+  const [mode, setMode] = useState("main");
+  const [cardToSet, setCardToSet] = useState(0); // 0 is neither, 1 is 1, 2 is 2
+  
   const { height, width } = useWindowDimensions();
   var card_ratio
   if (width > 800) { card_ratio = 800 / 1000; } // avoid card being too large
   else { card_ratio = (width / 1000) }
   const card_width = "scale(" + (card_ratio.toString()) + ")"
 
+  let screen = (
+  <div className="MainScreen">
+    <h1>Preflop Pro</h1>
+    <div className="row justify-content-center">
+      <div className="col-3">
+        <h4>Card 1</h4>
+        {getPicture(userHand.card1, card_width, 1, setMode, setCardToSet)}
+        <br/>
+        <CardArea setUserHand={setUserHand} cardNum={1} userHand={userHand} />
+      </div>
+      <div className="col-3">
+        <h4>Card 2</h4>
+        {getPicture(userHand.card2, card_width, 2, setMode, setCardToSet)}
+        <br/>
+        <CardArea setUserHand={setUserHand} cardNum={2} userHand={userHand} />
+      </div>
+    </div>
+    <br/>
+    <h1>Action: {HandToDecision(userHand)}!</h1>
+  </div>);
+
+  if (mode === "suit") {
+    screen = (
+      <div className="SuitScreen">
+        {/* 4 suits laid out as buttons. onClick for each button will save suit somehow & move to val screen*/}
+        Suit screen!
+      </div>
+    );
+  }
+  else if (mode === "val") {
+    screen = (
+      <div className="ValScreen">
+        Val screen!
+      </div>
+    );
+  }
+
   return (
     <div className="App">
-      <h1>Preflop Pro</h1>
-      <div className="row justify-content-center">
-        <div className="col-3">
-          <h4>Card 1</h4>
-          {getPicture(userHand.card1, card_width)}
-          <br/>
-          <CardArea setUserHand={setUserHand} cardNum={1} userHand={userHand} />
-        </div>
-        <div className="col-3">
-          <h4>Card 2</h4>
-          {getPicture(userHand.card2, card_width)}
-          <br/>
-          <CardArea setUserHand={setUserHand} cardNum={2} userHand={userHand} />
-        </div>
-      </div>
-
-      <h1>Action: {HandToDecision(userHand)}!</h1>
+      {screen}
     </div >
   );
 }
