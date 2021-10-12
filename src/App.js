@@ -31,6 +31,8 @@ const Select = styled.select`
   }
 `;
 
+const suits = ['C', 'D', 'H', 'S']
+
 const defaultUserHand = {
   "card1": { "value": '2', "suit": 'D' },
   "card2": { "value": '7', "suit": 'H' }
@@ -73,9 +75,9 @@ const cardClicked = (cardNum, setMode, setCardToSet) => {
   setCardToSet(cardNum);
 }
 
-const suitClicked = (suit, cardNum) => {
+const suitClicked = (suit, userHand, setUserHand, cardNum, setMode) => {
   setMode("val");
-  setUserHand(); // set suit of the correct card to be the suit we just clicked, and keep the other card the same
+  setSuit(suit, userHand, setUserHand, cardNum)
 }
 
 const getPicture = (card, card_width, cardNum, setMode, setCardToSet) => {
@@ -85,11 +87,12 @@ const getPicture = (card, card_width, cardNum, setMode, setCardToSet) => {
   return <svg width={170} height={245} transform={card_width} onClick={() => cardClicked(cardNum, setMode, setCardToSet) }> ><use xlinkHref={path} /></svg>
 }
 
-const SuitButton = () => {
+const SuitButton = ({suit, userHand, setUserHand, cardNum, setMode}) => {
   return (
-    <button onClick={}/>
+    <button onClick={() => suitClicked(suit, userHand, setUserHand, cardNum, setMode)}/>
   );
 }
+
 
 const App = () => {
   const [userHand, setUserHand] = useState(defaultUserHand);
@@ -128,7 +131,7 @@ const App = () => {
     screen = (
       <div className="SuitScreen">
         {/* 4 suits laid out as buttons. onClick for each button will save suit somehow & move to val screen*/}
-        Suit screen!
+        {suits.map((suit) => <SuitButton suit={suit} userHand={userHand} setUserHand={setUserHand} cardNum={cardToSet} setMode={setMode}>{suit}</SuitButton>)}
       </div>
     );
   }

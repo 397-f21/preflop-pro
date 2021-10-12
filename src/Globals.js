@@ -100,7 +100,7 @@ export const setRank = (val, userHand, setUserHand, cardNum) => {
   }
 }
 
-const suitsToEmojiJSX = {
+export const suitsToEmojiJSX = {
     'C': <option value="C" key="C">&#9827;</option>,
     'D': <option value="D" key="D">&#9830;</option>,
     'H': <option value="H" key="H">&hearts;</option>,
@@ -164,4 +164,4 @@ export const useWindowDimensions = () => {
   return windowDimensions;
 }
 
-export default { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions };
+export default { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions, suitsToEmojiJSX };
