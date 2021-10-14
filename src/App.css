@@ -5,7 +5,7 @@ html, body {
 
 .App {
   text-align: center;
-  background-color: darkgreen;
+  background-color: #1c3327;
   height: 100vh;
 }
 
@@ -50,7 +50,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #F8F8F8;
+  color: #f3f4f3;
 }
 
 .DropDown {

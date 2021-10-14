@@ -102,13 +102,15 @@ const App = () => {
   const { height, width } = useWindowDimensions();
   var card_ratio
   if (width > 800) { card_ratio = 800 / 1000; } // avoid card being too large
-  else if (width < 650) { card_ratio = 600 / 1000; } // avoid card being too small
+  else if (width < 650) { card_ratio = 650 / 1000; } // avoid card being too small
   else { card_ratio = (width / 1000) }
   const card_width = "scale(" + (card_ratio.toString()) + ")"
 
   let screen = (
-    <div className="MainScreen">
+    <div className="container">
+      <br />
       <h1>Preflop Pro</h1>
+      <br />
       <div className="row justify-content-center">
         <div className="col-6 col-sm-4 col-md-3">
           <h4>Card 1</h4>
