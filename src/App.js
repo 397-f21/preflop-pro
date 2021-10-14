@@ -82,7 +82,7 @@ const getPicture = (card, card_width, cardNum, setMode, setCardToSet) => {
   const name = cardToName(card)
 
   const path = `${svg}#${name}`
-  return <svg width={170} height={245} transform={card_width} onClick={() => cardClicked(cardNum, setMode, setCardToSet)}> ><use xlinkHref={path} /></svg>
+  return <svg width={170} height={245} transform={card_width} onClick={() => cardClicked(cardNum, setMode, setCardToSet)}><use xlinkHref={path} /></svg>
 }
 
 const SuitButton = ({ suit, userHand, setUserHand, cardNum, setMode }) => {
@@ -107,7 +107,7 @@ const App = () => {
   const card_width = "scale(" + (card_ratio.toString()) + ")"
 
   let screen = (
-    <div className="container">
+    <div className="MainScreen">
       <br />
       <h1>Preflop Pro</h1>
       <br />
