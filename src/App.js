@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import svg from "./svg-cards/svg-cards.svg";
 import styled from 'styled-components';
 import { Container, Button, Link, lightColors, darkColors } from 'react-floating-action-button';
-// import Modal from 'react-bootstrap/Modal';
+//import Modal from 'react-bootstrap';
 import Modal from 'react-modal';
 
 const Select = styled.select`
@@ -109,9 +109,32 @@ const App = () => {
   else { card_ratio = (width / 1000) }
   const card_width = "scale(" + (card_ratio.toString()) + ")"
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = '#f00';
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   let screen = (
     <div className="MainScreen">
@@ -119,7 +142,7 @@ const App = () => {
         <Button
           tooltip="Create note link"
           icon="fa fa-sticky-note"
-          onClick={handleShow} 
+          onClick={openModal} 
           variant="primary" 
           />
         <Button
@@ -130,8 +153,22 @@ const App = () => {
           icon="fa fa-question fa-2x"
           styles={{ backgroundColor: "#f5f5f5D9", color: "#1c3327" }}
           // rotate={true}
-          // onClick={() => alert('FAB Rocks!')} 
+          onClick={() => alert('FAB Rocks!')} 
           />
+
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Texas Hold'em Rules</h2>
+        <button onClick={closeModal}>close</button>
+        <p>Texas Hold'em is a game of poker where two cards are dealt face down to each player, and then five community cards are dealt face up in three stages</p>
+        <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm">Rules</a>
+
+      </Modal>
       </Container>
       
       <br />
@@ -153,7 +190,7 @@ const App = () => {
       </div>
       <br />
       <h1>Action: {HandToDecision(userHand)}!</h1>
-    </div>);
+</div>);
 
   if (mode === "suit") {
     screen = (
@@ -174,6 +211,7 @@ const App = () => {
   return (
     <div className="App">
       {screen}
+      
     </div >
   );
 }
