@@ -5,7 +5,9 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import svg from "./svg-cards/svg-cards.svg";
 import styled from 'styled-components';
-import { Container, Button, Link, lightColors, darkColors } from 'react-floating-action-button'
+import { Container, Button, Link, lightColors, darkColors } from 'react-floating-action-button';
+// import Modal from 'react-bootstrap/Modal';
+import Modal from 'react-modal';
 
 const Select = styled.select`
   width: 50%;
@@ -107,22 +109,31 @@ const App = () => {
   else { card_ratio = (width / 1000) }
   const card_width = "scale(" + (card_ratio.toString()) + ")"
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   let screen = (
     <div className="MainScreen">
       <Container>
-        <Link href="#"
+        <Button
           tooltip="Create note link"
-          icon="fa fa-sticky-note" />
-        <Link href="#"
+          icon="fa fa-sticky-note"
+          onClick={handleShow} 
+          variant="primary" 
+          />
+        <Button
           tooltip="Add user link"
           icon="fa fa-user-plus" />
         <Button
           tooltip="The big plus button!"
           icon="fa fa-question fa-2x"
           styles={{ backgroundColor: "#f5f5f5D9", color: "#1c3327" }}
-          rotate={true}
-          onClick={() => alert('FAB Rocks!')} />
+          // rotate={true}
+          // onClick={() => alert('FAB Rocks!')} 
+          />
       </Container>
+      
       <br />
       <h1>Preflop Pro</h1>
       <br />
