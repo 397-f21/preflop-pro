@@ -165,7 +165,7 @@ const App = () => {
       >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Texas Hold'em Rules</h2>
         <button onClick={closeModal}>close</button>
-        <p>Texas Hold'em is a game of poker where two cards are dealt face down to each player, and then five community cards are dealt face up in three stages</p>
+        <p>Texas Hold'em is a game of poker where two cards are dealt face down to each player, and then five community cards are dealt face up in three stages.</p>
         <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm">Rules</a>
 
       </Modal>
@@ -173,6 +173,9 @@ const App = () => {
       
       <br />
       <h1>Preflop Pro</h1>
+      <h4><i>"The best way to learn Texas Hold 'Em Poker!"</i></h4>
+      <br />
+      <h5>Select the two cards in your hand:</h5>
       <br />
       <div className="row justify-content-center">
         <div className="col-6 col-sm-4 col-md-3">
