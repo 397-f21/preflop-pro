@@ -5,6 +5,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import svg from "./svg-cards/svg-cards.svg";
 import styled from 'styled-components';
+import { Container, Button, Link, lightColors, darkColors } from 'react-floating-action-button'
 
 const Select = styled.select`
   width: 50%;
@@ -82,7 +83,7 @@ const getPicture = (card, card_width, cardNum, setMode, setCardToSet) => {
   const name = cardToName(card)
 
   const path = `${svg}#${name}`
-  return <svg width={170} height={245} transform={card_width} onClick={() => cardClicked(cardNum, setMode, setCardToSet)}><use xlinkHref={path} /></svg>
+  return <svg width={170} height={245} transform={card_width}><use xlinkHref={path} /></svg>
 }
 
 const SuitButton = ({ suit, userHand, setUserHand, cardNum, setMode }) => {
@@ -108,6 +109,20 @@ const App = () => {
 
   let screen = (
     <div className="MainScreen">
+      <Container>
+        <Link href="#"
+          tooltip="Create note link"
+          icon="fa fa-sticky-note" />
+        <Link href="#"
+          tooltip="Add user link"
+          icon="fa fa-user-plus" />
+        <Button
+          tooltip="The big plus button!"
+          icon="fa fa-question fa-2x"
+          styles={{ backgroundColor: "#f5f5f5D9", color: "#1c3327" }}
+          rotate={true}
+          onClick={() => alert('FAB Rocks!')} />
+      </Container>
       <br />
       <h1>Preflop Pro</h1>
       <br />
