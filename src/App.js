@@ -123,8 +123,8 @@ const App = () => {
           onClick={handleShow}
         />
         <Button
-          tooltip="Add user link"
-          icon="fa fa-user-plus" />
+          tooltip="App Logic"
+          icon="fa fa-clipboard-check fa-lg" />
         <Button
           tooltip="Help!"
           icon="fa fa-question fa-2x"
