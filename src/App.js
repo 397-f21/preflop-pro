@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import svg from "./svg-cards/svg-cards.svg";
 import styled from 'styled-components';
 import { Container, Button, Link, lightColors, darkColors } from 'react-floating-action-button';
-//import Modal from 'react-bootstrap';
-import Modal from 'react-modal';
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Select = styled.select`
   width: 50%;
@@ -109,68 +109,46 @@ const App = () => {
   else { card_ratio = (width / 1000) }
   const card_width = "scale(" + (card_ratio.toString()) + ")"
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   let screen = (
     <div className="MainScreen">
       <Container>
         <Button
-          tooltip="Create note link"
-          icon="fa fa-sticky-note"
-          onClick={openModal} 
-          variant="primary" 
-          />
+          tooltip="About Texas Hold'em"
+          icon="fa fa-info fa-lg"
+          onClick={handleShow}
+        />
         <Button
           tooltip="Add user link"
           icon="fa fa-user-plus" />
         <Button
-          tooltip="The big plus button!"
+          tooltip="Help!"
           icon="fa fa-question fa-2x"
           styles={{ backgroundColor: "#f5f5f5D9", color: "#1c3327" }}
-          // rotate={true}
-          onClick={() => alert('FAB Rocks!')} 
-          />
+        // rotate={true}
+        // onClick={() => alert('FAB Rocks!')}
+        />
 
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Texas Hold'em Rules</h2>
-        <button onClick={closeModal}>close</button>
-        <p>Texas Hold'em is a game of poker where two cards are dealt face down to each player, and then five community cards are dealt face up in three stages.</p>
-        <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm">Rules</a>
-
-      </Modal>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header>
+            <Modal.Title>About Texas Hold'em</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Texas Hold'em is a game of poker where two cards are dealt face down to each player,
+            and then five community cards are dealt face up in three stages.</Modal.Body>
+          <Modal.Footer>
+            <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
+              className="btn btn-primary" role="button" target="_blank">Learn More</a>
+            <button type="button" class="btn btn-secondary" onClick={handleClose}>
+              Close
+            </button>
+          </Modal.Footer>
+        </Modal>
       </Container>
-      
+
       <br />
       <h1>Preflop Pro</h1>
       <h4><i>"The best way to learn Texas Hold 'Em Poker!"</i></h4>
@@ -193,7 +171,7 @@ const App = () => {
       </div>
       <br />
       <h1>Action: {HandToDecision(userHand)}!</h1>
-</div>);
+    </div>);
 
   if (mode === "suit") {
     screen = (
@@ -214,7 +192,7 @@ const App = () => {
   return (
     <div className="App">
       {screen}
-      
+
     </div >
   );
 }
