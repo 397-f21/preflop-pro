@@ -109,46 +109,16 @@ const App = () => {
   else { card_ratio = (width / 1000) }
   const card_width = "scale(" + (card_ratio.toString()) + ")"
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [show1, setShow1] = useState(false);
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
 
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
 
   let screen = (
     <div className="MainScreen">
-      <Container>
-        <Button
-          tooltip="About Texas Hold'em"
-          icon="fa fa-info fa-lg"
-          onClick={handleShow}
-        />
-        <Button
-          tooltip="App Logic"
-          icon="fa fa-clipboard-check fa-lg" />
-        <Button
-          tooltip="Help!"
-          icon="fa fa-question fa-2x"
-          styles={{ backgroundColor: "#f5f5f5D9", color: "#1c3327" }}
-        // rotate={true}
-        // onClick={() => alert('FAB Rocks!')}
-        />
-
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header>
-            <Modal.Title>About Texas Hold'em</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Texas Hold'em is a game of poker where two cards are dealt face down to each player,
-            and then five community cards are dealt face up in three stages.</Modal.Body>
-          <Modal.Footer>
-            <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
-              className="btn btn-primary" role="button" target="_blank">Learn More</a>
-            <button type="button" class="btn btn-secondary" onClick={handleClose}>
-              Close
-            </button>
-          </Modal.Footer>
-        </Modal>
-      </Container>
-
       <br />
       <h1>Preflop Pro</h1>
       <h4><i>"The best way to learn Texas Hold 'Em Poker!"</i></h4>
@@ -171,7 +141,55 @@ const App = () => {
       </div>
       <br />
       <h1>Action: {HandToDecision(userHand)}!</h1>
-    </div>);
+      <Container>
+        <Button
+          tooltip="About Texas Hold'em"
+          icon="fa fa-info fa-lg"
+          onClick={handleShow1}
+        />
+        <Button
+          tooltip="App Logic"
+          icon="fa fa-clipboard-check fa-lg"
+          onClick={handleShow2} />
+        <Button
+          tooltip="Help!"
+          icon="fa fa-question fa-2x"
+          styles={{ backgroundColor: "#f5f5f5D9", color: "#1c3327" }}
+        // rotate={true}
+        // onClick={() => alert('FAB Rocks!')}
+        />
+
+        <Modal show={show1} onHide={handleClose1}>
+          <Modal.Header>
+            <Modal.Title>About Texas Hold'em</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Texas Hold'em is a game of poker where two cards are dealt face down to each player,
+            and then five community cards are dealt face up in three stages.</Modal.Body>
+          <Modal.Footer>
+            <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
+              className="btn btn-primary" role="button" target="_blank">Learn More</a>
+            <button type="button" class="btn btn-secondary" onClick={handleClose1}>
+              Close
+            </button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show={show2} onHide={handleClose2}>
+          <Modal.Header>
+            <Modal.Title>App Logic</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>App logic goes here</Modal.Body>
+          <Modal.Footer>
+            <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
+              className="btn btn-primary" role="button" target="_blank">Learn More</a>
+            <button type="button" class="btn btn-secondary" onClick={handleClose2}>
+              Close
+            </button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
+    </div>
+  );
 
   if (mode === "suit") {
     screen = (
