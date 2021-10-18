@@ -53,14 +53,16 @@ const SuitDropDown = ({ setUserHand, cardNum, userHand }) => {
     setSuitOptionList(genSuits(cardNum, userHand))
   }, [userHand, cardNum]);
   return (
-    <select className="form-select mb-1 mx-1" id={"suit-input-" + cardNum} value={getSuit(userHand, cardNum)} onChange={(e) => { setSuit(e.target.value, userHand, setUserHand, cardNum) }}>
+    <select className="form-select mb-1 mx-1" id={"suit-input-" + cardNum}
+      value={getSuit(userHand, cardNum)} onChange={(e) => { setSuit(e.target.value, userHand, setUserHand, cardNum) }}>
       {suitOptionList}
     </select>
   );
 }
 
 const RankDropDown = ({ setUserHand, cardNum, userHand }) => (
-  <select className="form-select mb-1 mx-1" id={"rank-input-" + cardNum} value={getRank(userHand, cardNum)} onChange={(e) => setRank(e.target.value, userHand, setUserHand, cardNum)}>
+  <select className="form-select mb-1 mx-1" id={"rank-input-" + cardNum}
+    value={getRank(userHand, cardNum)} onChange={(e) => setRank(e.target.value, userHand, setUserHand, cardNum)}>
     {genRanks(cardNum, userHand)}
   </select>
 )
@@ -133,7 +135,7 @@ const App = () => {
       <br />
       <div className="row justify-content-center">
         <div>
-          <NumPlayersDropdown numPlayers={numPlayers} setNumPlayers={setNumPlayers} />
+          <NumPlayersDropdown numPlayers={numPlayers} setNumPlayers={setNumPlayers} setSeat={setSeat} />
           <PositionDropdown numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
         </div>
         <div className="col-6 col-sm-4 col-md-3">
@@ -150,7 +152,7 @@ const App = () => {
         </div>
       </div>
       <br />
-      <h1>Action: {HandToDecision(userHand)}!</h1>
+      <h1>Action: {HandToDecision(userHand, seat)}!</h1>
       <Container>
         <Button
           tooltip="About Texas Hold'em"

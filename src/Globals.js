@@ -210,7 +210,7 @@ const handChart = [
 ];
 
 export const PosToChart = new Map([
-  ['SB', handChartBlind], 
+  ['SB', handChartBlind],
   ['BB', handChartBlind],
   ['UTG', handChartUTG],
   ['UTG1', handChartUTG1],
@@ -222,7 +222,8 @@ export const PosToChart = new Map([
   ['BTN', handChartBtn]
 ])
 
-export function HandToDecision(hand) {
+export function HandToDecision(hand, seat) {
+  const handChart = PosToChart.get(seat)
   let indices = ([valToIndex[hand.card1.value], valToIndex[hand.card2.value]]).sort();
   if (hand.card1.suit !== hand.card2.suit) {
     if (handChart[indices[1]][indices[0]]) {
