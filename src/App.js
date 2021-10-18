@@ -1,4 +1,5 @@
 import { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions } from './Globals.js'
+import { PositionDropdown, NumPlayersDropdown } from './utilities/Positioning';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
@@ -52,20 +53,20 @@ const SuitDropDown = ({ setUserHand, cardNum, userHand }) => {
     setSuitOptionList(genSuits(cardNum, userHand))
   }, [userHand, cardNum]);
   return (
-    <select class="form-select mb-1 mx-1" id={"suit-input-" + cardNum} value={getSuit(userHand, cardNum)} onChange={(e) => { setSuit(e.target.value, userHand, setUserHand, cardNum) }}>
+    <select className="form-select mb-1 mx-1" id={"suit-input-" + cardNum} value={getSuit(userHand, cardNum)} onChange={(e) => { setSuit(e.target.value, userHand, setUserHand, cardNum) }}>
       {suitOptionList}
     </select>
   );
 }
 
 const RankDropDown = ({ setUserHand, cardNum, userHand }) => (
-  <select class="form-select mb-1 mx-1" id={"rank-input-" + cardNum} value={getRank(userHand, cardNum)} onChange={(e) => setRank(e.target.value, userHand, setUserHand, cardNum)}>
+  <select className="form-select mb-1 mx-1" id={"rank-input-" + cardNum} value={getRank(userHand, cardNum)} onChange={(e) => setRank(e.target.value, userHand, setUserHand, cardNum)}>
     {genRanks(cardNum, userHand)}
   </select>
 )
 
 const CardArea = ({ setUserHand, cardNum, userHand }) => (
-  <div class="btn-group">
+  <div className="btn-group">
     <SuitDropDown setUserHand={setUserHand} cardNum={cardNum} userHand={userHand} />
     <RankDropDown setUserHand={setUserHand} cardNum={cardNum} userHand={userHand} />
   </div>
@@ -105,7 +106,7 @@ const App = () => {
   // TODO: seat needs to be implemented into how we reference the chart to give back advice
   // DO THIS IN GLOBAL.JS (HandToDecision(hand, seat))
   const [numPlayers, setNumPlayers] = useState(9);
-  const [seat, setSeat] = useState('UTG');
+  const [seat, setSeat] = useState("UTG");
 
   const { height, width } = useWindowDimensions();
   var card_ratio
@@ -131,6 +132,10 @@ const App = () => {
       <h5>Select the two cards in your hand:</h5>
       <br />
       <div className="row justify-content-center">
+        <div>
+          <NumPlayersDropdown numPlayers={numPlayers} setNumPlayers={setNumPlayers} />
+          <PositionDropdown numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
+        </div>
         <div className="col-6 col-sm-4 col-md-3">
           <h4>Card 1</h4>
           {getPicture(userHand.card1, card_width, 1, setMode, setCardToSet)}
