@@ -1,5 +1,5 @@
 import { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions } from './Globals.js'
-import { PositionDropdown, NumPlayersDropdown, NextHandButton } from './utilities/Positioning';
+import { GetNumToAct, PositionDropdown, NumPlayersDropdown, NextHandButton } from './utilities/Positioning';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
@@ -150,7 +150,8 @@ const App = () => {
       </div>
       <br />
       <h1>Action: {HandToDecision(userHand, seat)}!</h1>
-
+      <h4>You are the {GetNumToAct(numPlayers, seat)} person to act.</h4>
+      <br />
       <Modal show={show1} onHide={handleClose1}>
         <Modal.Header>
           <Modal.Title>About Texas Hold'em</Modal.Title>

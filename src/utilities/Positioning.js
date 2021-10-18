@@ -59,15 +59,41 @@ const NextHand = (numPlayers, seat) => {
   return seats[(seats.findIndex(el => el === seat) + 1) % seats.length];
 }
 
+const mod = (a, b) => (
+    ((a % b) + b) % b
+);
+
+const numToEnglish = new Map([
+    [1,"first"],
+    [2,"second"],
+    [3,"third"],
+    [4,"fourth"],
+    [5,"fifth"],
+    [6,"sixth"],
+    [7,"seventh"],
+    [8,"eighth"],
+    [9,"ninth"],
+    [10,"tenth"],
+])
+
+export const GetNumToAct = (numPlayers, seat) => (
+    numToEnglish.get(mod(getSeats(numPlayers).findIndex(el => seat === el) - 2, numPlayers) + 1)
+);
+
 export const NextHandButton = ({ numPlayers, seat, setSeat }) => (
     <Button variant="primary" id="next-hand" onClick={() => setSeat(NextHand(numPlayers, seat, setSeat))}>
         Next Hand</Button>
 );
 
+const genPositions = (numPlayers, seat) => (
+    numPlayers <= 6 && seat === "LJ" ?
+        "Middle Position" : positionMap.get(seat)
+);
+
 // returns option components for PositionDropdown
 const genSeats = (numPlayers) => (
   getSeats(numPlayers).map(seat => (
-    <option value={seat} key={seat}>{positionMap.get(seat)}</option>
+    <option value={seat} key={seat}>{genPositions(numPlayers, seat)}</option>
   ))
 );
 
