@@ -5,8 +5,8 @@ import './App.css';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import svg from "./svg-cards/svg-cards.svg";
-import { Container, Button } from 'react-floating-action-button';
 import Modal from "react-bootstrap/Modal";
+import { Nav, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const suits = ['C', 'D', 'H', 'S']
@@ -100,6 +100,19 @@ const App = () => {
 
   let screen = (
     <div className="MainScreen">
+      <Navbar collapseOnSelect expand="false" bg="dark" variant="dark">
+        <Navbar.Brand>
+          <i id="navLogo" class="fa fa-heart"></i>
+          Preflop Pro
+        </Navbar.Brand>
+        <Navbar.Toggle id="hamburger" aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link onClick={handleShow1}>About Texas Hold'Em</Nav.Link>
+            <Nav.Link onClick={handleShow2}>App Logic</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
       <br />
       <h1>Preflop Pro</h1>
       <h4><i>"The best way to learn Texas Hold 'Em Poker!"</i></h4>
@@ -134,58 +147,40 @@ const App = () => {
       </div>
       <br />
       <h1>Action: {HandToDecision(userHand, seat)}!</h1>
-      <Container>
-        <Button
-          tooltip="About Texas Hold'em"
-          icon="fa fa-info fa-lg"
-          onClick={handleShow1}
-        />
-        <Button
-          tooltip="App Logic"
-          icon="fa fa-clipboard-check fa-lg"
-          onClick={handleShow2} />
-        <Button
-          tooltip="Help!"
-          icon="fa fa-question fa-2x"
-          styles={{ backgroundColor: "#f5f5f5D9", color: "#1c3327" }}
-        // rotate={true}
-        // onClick={() => alert('FAB Rocks!')}
-        />
 
-        <Modal show={show1} onHide={handleClose1}>
-          <Modal.Header>
-            <Modal.Title>About Texas Hold'em</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Texas Hold'em is a game of poker where two cards are dealt face down to each player,
-            and then five community cards are dealt face up in three stages.</Modal.Body>
+      <Modal show={show1} onHide={handleClose1}>
+        <Modal.Header>
+          <Modal.Title>About Texas Hold'em</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Texas Hold'em is a game of poker where two cards are dealt face down to each player,
+          and then five community cards are dealt face up in three stages.</Modal.Body>
 
-          <Modal.Body>Start by select number of players, then your position.
-            Put 2 cards that are in your hand. Check which action to take!</Modal.Body>
-          <Modal.Footer>
-            <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
-              className="btn btn-primary" role="button"
-              rel="noreferrer" target="_blank">Learn More</a>
-            <button type="button" className="btn btn-secondary" onClick={handleClose1}>
-              Close
-            </button>
-          </Modal.Footer>
-        </Modal>
+        <Modal.Body>Start by select number of players, then your position.
+          Put 2 cards that are in your hand. Check which action to take!</Modal.Body>
+        <Modal.Footer>
+          <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
+            className="btn btn-primary" role="button"
+            rel="noreferrer" target="_blank">Learn More</a>
+          <button type="button" className="btn btn-secondary" onClick={handleClose1}>
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
 
-        <Modal show={show2} onHide={handleClose2}>
-          <Modal.Header>
-            <Modal.Title>App Logic</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>App logic goes here</Modal.Body>
-          <Modal.Footer>
-            <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
-              className="btn btn-primary" role="button"
-              rel="noreferrer" target="_blank">Learn More</a>
-            <button type="button" className="btn btn-secondary" onClick={handleClose2}>
-              Close
-            </button>
-          </Modal.Footer>
-        </Modal>
-      </Container>
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header>
+          <Modal.Title>App Logic</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>App logic goes here</Modal.Body>
+        <Modal.Footer>
+          <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
+            className="btn btn-primary" role="button"
+            rel="noreferrer" target="_blank">Learn More</a>
+          <button type="button" className="btn btn-secondary" onClick={handleClose2}>
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 

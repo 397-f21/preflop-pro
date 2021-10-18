@@ -7,6 +7,8 @@ html, body {
   text-align: center;
   background-color: #1c3327;
   height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .App-logo {
@@ -68,4 +70,13 @@ label {
 
 svg {
   margin-bottom: 10px;
+}
+
+#navLogo {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#hamburger {
+    margin-right: 2px;
 }
