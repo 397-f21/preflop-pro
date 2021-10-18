@@ -192,7 +192,35 @@ const handChartUTG = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-const PosToChart = new Map([“position_string”, CHART], … ])
+// DELETE ME LATER - just keeping here so the rest of code referencing handChart doesn't break.
+const handChart = [
+  [1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0],
+  [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+export const PosToChart = new Map([
+  ['SB', handChartBlind], 
+  ['BB', handChartBlind],
+  ['UTG', handChartUTG],
+  ['UTG1', handChartUTG1],
+  ['UTG2', handChartUTG2],
+  ['UTG3', handChartUTG3],
+  ['LJ', handChartLoJack],
+  ['HJ', handChartHiJack],
+  ['CO', handChartCutoff],
+  ['BTN', handChartBtn]
+])
 
 export function HandToDecision(hand) {
   let indices = ([valToIndex[hand.card1.value], valToIndex[hand.card2.value]]).sort();
