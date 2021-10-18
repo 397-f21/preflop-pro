@@ -1,5 +1,5 @@
 import { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions } from './Globals.js'
-import { PositionDropdown, NumPlayersDropdown } from './utilities/Positioning';
+import { GetNumToAct, PositionDropdown, NumPlayersDropdown, NextHandButton } from './utilities/Positioning';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
@@ -117,16 +117,19 @@ const App = () => {
       <h1>Preflop Pro</h1>
       <h4><i>"The best way to learn Texas Hold 'Em Poker!"</i></h4>
       <br />
-
+      <div>
+        <NextHandButton numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
+      </div>
+      <br />
       <div className="form-group row justify-content-center">
         <label for="numPlayers" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Players:</label>
-        <div className="col-4 col-sm-4 col-md-2 col-lg-2">
-          <NumPlayersDropdown id="numPlayers" numPlayers={numPlayers} setNumPlayers={setNumPlayers} setSeat={setSeat} />
+        <div className="col-4 col-sm-4 col-md-3 col-lg-2">
+          <NumPlayersDropdown id="numPlayers" numPlayers={numPlayers} setNumPlayers={setNumPlayers} seat={seat} setSeat={setSeat} />
         </div>
       </div>
       <div className="form-group row justify-content-center">
         <label for="position" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Position:</label>
-        <div className="col-4 col-sm-4 col-md-2 col-lg-2">
+        <div className="col-4 col-sm-4 col-md-3 col-lg-2">
           <PositionDropdown id="position" numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
         </div>
       </div>
@@ -147,7 +150,8 @@ const App = () => {
       </div>
       <br />
       <h1>Action: {HandToDecision(userHand, seat)}!</h1>
-
+      <h4>You are the {GetNumToAct(numPlayers, seat)} person to act.</h4>
+      <br />
       <Modal show={show1} onHide={handleClose1}>
         <Modal.Header>
           <Modal.Title>About Texas Hold'em</Modal.Title>
@@ -171,11 +175,13 @@ const App = () => {
         <Modal.Header>
           <Modal.Title>App Logic</Modal.Title>
         </Modal.Header>
-        <Modal.Body>App logic goes here</Modal.Body>
+        <Modal.Body>This web app assumes that the player is short-stacked in a no-ante game, with 15 blinds (or 15% of a typical buy-in). 
+          Player is not guaranteed to profit based on advice, but should certainly think about folding when advised!</Modal.Body>
+        <Modal.Body>If you would like to read into the charts we base the app's advice from, hit the button below.</Modal.Body>
         <Modal.Footer>
-          <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
+          <a href="https://www.mypokercoaching.com/push-fold-chart/"
             className="btn btn-primary" role="button"
-            rel="noreferrer" target="_blank">Learn More</a>
+            rel="noreferrer" target="_blank">Push/Fold Charts</a>
           <button type="button" className="btn btn-secondary" onClick={handleClose2}>
             Close
           </button>
