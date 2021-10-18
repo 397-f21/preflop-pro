@@ -102,6 +102,11 @@ const App = () => {
   const [mode, setMode] = useState("main");
   const [cardToSet, setCardToSet] = useState(0); // 0 is neither, 1 is 1, 2 is 2
 
+  // TODO: seat needs to be implemented into how we reference the chart to give back advice
+  // DO THIS IN GLOBAL.JS (HandToDecision(hand, seat))
+  const [numPlayers, setNumPlayers] = useState(9);
+  const [seat, setSeat] = useState('UTG');
+
   const { height, width } = useWindowDimensions();
   var card_ratio
   if (width > 800) { card_ratio = 800 / 1000; } // avoid card being too large
