@@ -1,5 +1,5 @@
 import { cardToName, HandToDecision, genRanks, getRank, setRank, genSuits, getSuit, setSuit, useWindowDimensions } from './Globals.js'
-import { PositionDropdown, NumPlayersDropdown } from './utilities/Positioning';
+import { PositionDropdown, NumPlayersDropdown, NextHandButton } from './utilities/Positioning';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import './index.css';
@@ -120,16 +120,18 @@ const App = () => {
 
       <div className="form-group row justify-content-center">
         <label for="numPlayers" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Players:</label>
-        <div className="col-4 col-sm-4 col-md-2 col-lg-2">
-          <NumPlayersDropdown id="numPlayers" numPlayers={numPlayers} setNumPlayers={setNumPlayers} setSeat={setSeat} />
+        <div className="col-4 col-sm-4 col-md-3 col-lg-2">
+          <NumPlayersDropdown id="numPlayers" numPlayers={numPlayers} setNumPlayers={setNumPlayers} seat={seat} setSeat={setSeat} />
         </div>
       </div>
       <div className="form-group row justify-content-center">
         <label for="position" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Position:</label>
-        <div className="col-4 col-sm-4 col-md-2 col-lg-2">
+        <div className="col-4 col-sm-4 col-md-3 col-lg-2">
           <PositionDropdown id="position" numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
         </div>
       </div>
+      <br />
+      <NextHandButton numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
       <br />
       <div className="row justify-content-center">
         <div className="col-6 col-sm-4 col-md-4 col-lg-2">
@@ -171,7 +173,8 @@ const App = () => {
         <Modal.Header>
           <Modal.Title>App Logic</Modal.Title>
         </Modal.Header>
-        <Modal.Body>App logic goes here</Modal.Body>
+        <Modal.Body>This web app assumes that the player is short-stacked, with 15 blinds (or 15% of a typical buy-in). 
+          Player is not guaranteed to profit based on advice, but should certainly think about folding when advised!</Modal.Body>
         <Modal.Footer>
           <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
             className="btn btn-primary" role="button"
