@@ -117,7 +117,10 @@ const App = () => {
       <h1>Preflop Pro</h1>
       <h4><i>"The best way to learn Texas Hold 'Em Poker!"</i></h4>
       <br />
-
+      <div>
+        <NextHandButton numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
+      </div>
+      <br />
       <div className="form-group row justify-content-center">
         <label for="numPlayers" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Players:</label>
         <div className="col-4 col-sm-4 col-md-3 col-lg-2">
@@ -130,8 +133,6 @@ const App = () => {
           <PositionDropdown id="position" numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
         </div>
       </div>
-      <br />
-      <NextHandButton numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
       <br />
       <div className="row justify-content-center">
         <div className="col-6 col-sm-4 col-md-4 col-lg-2">
@@ -173,12 +174,13 @@ const App = () => {
         <Modal.Header>
           <Modal.Title>App Logic</Modal.Title>
         </Modal.Header>
-        <Modal.Body>This web app assumes that the player is short-stacked, with 15 blinds (or 15% of a typical buy-in). 
+        <Modal.Body>This web app assumes that the player is short-stacked in a no-ante game, with 15 blinds (or 15% of a typical buy-in). 
           Player is not guaranteed to profit based on advice, but should certainly think about folding when advised!</Modal.Body>
+        <Modal.Body>If you would like to read into the charts we base the app's advice from, hit the button below.</Modal.Body>
         <Modal.Footer>
-          <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
+          <a href="https://www.mypokercoaching.com/push-fold-chart/"
             className="btn btn-primary" role="button"
-            rel="noreferrer" target="_blank">Learn More</a>
+            rel="noreferrer" target="_blank">Push/Fold Charts</a>
           <button type="button" className="btn btn-secondary" onClick={handleClose2}>
             Close
           </button>
