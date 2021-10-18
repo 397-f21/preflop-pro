@@ -98,6 +98,10 @@ const App = () => {
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
+
   let screen = (
     <div className="MainScreen">
       <Navbar collapseOnSelect expand="false" bg="dark" variant="dark">
@@ -110,6 +114,7 @@ const App = () => {
           <Nav className="mr-auto">
             <Nav.Link onClick={handleShow1}>About Texas Hold'Em</Nav.Link>
             <Nav.Link onClick={handleShow2}>App Logic</Nav.Link>
+            <Nav.Link onClick={handleShow3}>Preflop Advice</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -121,6 +126,7 @@ const App = () => {
         <NextHandButton numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
       </div>
       <br />
+      
       <div className="form-group row justify-content-center">
         <label for="numPlayers" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Players:</label>
         <div className="col-4 col-sm-4 col-md-3 col-lg-2">
@@ -134,23 +140,23 @@ const App = () => {
         </div>
       </div>
       <br />
+      <h4>You are the {GetNumToAct(numPlayers, seat)} person to act.</h4>
+      <br />
       <div className="row justify-content-center">
         <div className="col-6 col-sm-4 col-md-4 col-lg-2">
           <label for="card1">Select Card 1:</label>
           <div id="card1">{getPicture(userHand.card1, card_width, 1, setMode, setCardToSet)}</div>
-          <br />
           <CardArea setUserHand={setUserHand} cardNum={1} userHand={userHand} />
         </div>
         <div className="col-6 col-sm-4 col-md-4 col-lg-2">
           <label for="card2">Select Card 2:</label>
           <div id="card2">{getPicture(userHand.card2, card_width, 2, setMode, setCardToSet)}</div>
-          <br />
           <CardArea setUserHand={setUserHand} cardNum={2} userHand={userHand} />
         </div>
       </div>
       <br />
       <h1>Action: {HandToDecision(userHand, seat)}!</h1>
-      <h4>You are the {GetNumToAct(numPlayers, seat)} person to act.</h4>
+      
       <br />
       <Modal show={show1} onHide={handleClose1}>
         <Modal.Header>
@@ -187,6 +193,29 @@ const App = () => {
           </button>
         </Modal.Footer>
       </Modal>
+
+      <Modal show={show3} onHide={handleClose3}>
+        <Modal.Header>
+          <Modal.Title>Tips For When You're Playing Short-Stacked</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+        <li>Play simple ABC poker. Avoid attempting to bluff and just bet when you have a strong hand.</li>
+        <li>Raise or fold: be prepared to move all of your stack in to the middle before or on the flop.</li>
+        <li>Only enter pots with premium hands: high pocket pairs, face cards, high suited connected (consecutive) cards</li>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <a href="https://www.thepokerbank.com/strategy/general/short-stack/"
+            className="btn btn-primary" role="button"
+            rel="noreferrer" target="_blank">Read More</a>
+          <button type="button" className="btn btn-secondary" onClick={handleClose3}>
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+
     </div>
   );
 
