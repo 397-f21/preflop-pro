@@ -5,34 +5,9 @@ import './App.css';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import svg from "./svg-cards/svg-cards.svg";
-import styled from 'styled-components';
-import { Container, Button, Link, lightColors, darkColors } from 'react-floating-action-button';
+import { Container, Button } from 'react-floating-action-button';
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-const Select = styled.select`
-  width: 50%;
-  height: 2em;
-  background: white;
-  color: gray;
-  padding-left: 5px;
-  padding-top: 0px;
-  font-size: 14px;
-  border: none;
-  margin-left: 0px;
-  margin-top: 0px;
-  text-align: top;
-
-  option {
-    color: black;
-    background: white;
-    display: flex;
-    white-space: pre;
-    min-height: 20px;
-    min-width: 50em;
-    padding: 0px 2px 1px;
-  }
-`;
 
 const suits = ['C', 'D', 'H', 'S']
 
@@ -44,8 +19,6 @@ const defaultUserHand = {
 const getCardFromHand = (hand, cardNum) => {
   return hand["card" + cardNum];
 }
-
-const StyledSelect = styled("select");
 
 const SuitDropDown = ({ setUserHand, cardNum, userHand }) => {
   const [suitOptionList, setSuitOptionList] = useState(genSuits(cardNum, userHand));
@@ -93,7 +66,7 @@ const getPicture = (card, card_width, cardNum, setMode, setCardToSet) => {
 
 const SuitButton = ({ suit, userHand, setUserHand, cardNum, setMode }) => {
   return (
-    <button type="button" class="btn btn-outline-light btn-lg"
+    <button type="button" className="btn btn-outline-light btn-lg"
       onClick={() => suitClicked(suit, userHand, setUserHand, cardNum, setMode)} />
   );
 }
@@ -105,7 +78,7 @@ const App = () => {
   const [mode, setMode] = useState("main");
   const [cardToSet, setCardToSet] = useState(0); // 0 is neither, 1 is 1, 2 is 2
 
-  // TODO: seat needs to be implemented into how we reference the chart to give back advice
+  // seat needs to be implemented into how we reference the chart to give back advice
   // DO THIS IN GLOBAL.JS (HandToDecision(hand, seat))
   const [numPlayers, setNumPlayers] = useState(9);
   const [seat, setSeat] = useState("UTG");
@@ -131,22 +104,30 @@ const App = () => {
       <h1>Preflop Pro</h1>
       <h4><i>"The best way to learn Texas Hold 'Em Poker!"</i></h4>
       <br />
-      <h5>Select the two cards in your hand:</h5>
+
+      <div className="form-group row justify-content-center">
+        <label for="numPlayers" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Players:</label>
+        <div className="col-4 col-sm-4 col-md-2 col-lg-2">
+          <NumPlayersDropdown id="numPlayers" numPlayers={numPlayers} setNumPlayers={setNumPlayers} setSeat={setSeat} />
+        </div>
+      </div>
+      <div className="form-group row justify-content-center">
+        <label for="position" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Position:</label>
+        <div className="col-4 col-sm-4 col-md-2 col-lg-2">
+          <PositionDropdown id="position" numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
+        </div>
+      </div>
       <br />
       <div className="row justify-content-center">
-        <div>
-          <NumPlayersDropdown numPlayers={numPlayers} setNumPlayers={setNumPlayers} setSeat={setSeat} />
-          <PositionDropdown numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
-        </div>
-        <div className="col-6 col-sm-4 col-md-3">
-          <h4>Card 1</h4>
-          {getPicture(userHand.card1, card_width, 1, setMode, setCardToSet)}
+        <div className="col-6 col-sm-4 col-md-4 col-lg-2">
+          <label for="card1">Select Card 1:</label>
+          <div id="card1">{getPicture(userHand.card1, card_width, 1, setMode, setCardToSet)}</div>
           <br />
           <CardArea setUserHand={setUserHand} cardNum={1} userHand={userHand} />
         </div>
-        <div className="col-6 col-sm-4 col-md-3">
-          <h4>Card 2</h4>
-          {getPicture(userHand.card2, card_width, 2, setMode, setCardToSet)}
+        <div className="col-6 col-sm-4 col-md-4 col-lg-2">
+          <label for="card2">Select Card 2:</label>
+          <div id="card2">{getPicture(userHand.card2, card_width, 2, setMode, setCardToSet)}</div>
           <br />
           <CardArea setUserHand={setUserHand} cardNum={2} userHand={userHand} />
         </div>
@@ -177,10 +158,14 @@ const App = () => {
           </Modal.Header>
           <Modal.Body>Texas Hold'em is a game of poker where two cards are dealt face down to each player,
             and then five community cards are dealt face up in three stages.</Modal.Body>
+
+          <Modal.Body>Start by select number of players, then your position.
+            Put 2 cards that are in your hand. Check which action to take!</Modal.Body>
           <Modal.Footer>
             <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
-              className="btn btn-primary" role="button" target="_blank">Learn More</a>
-            <button type="button" class="btn btn-secondary" onClick={handleClose1}>
+              className="btn btn-primary" role="button"
+              rel="noreferrer" target="_blank">Learn More</a>
+            <button type="button" className="btn btn-secondary" onClick={handleClose1}>
               Close
             </button>
           </Modal.Footer>
@@ -193,8 +178,9 @@ const App = () => {
           <Modal.Body>App logic goes here</Modal.Body>
           <Modal.Footer>
             <a href="https://www.pokernews.com/poker-rules/texas-holdem.htm"
-              className="btn btn-primary" role="button" target="_blank">Learn More</a>
-            <button type="button" class="btn btn-secondary" onClick={handleClose2}>
+              className="btn btn-primary" role="button"
+              rel="noreferrer" target="_blank">Learn More</a>
+            <button type="button" className="btn btn-secondary" onClick={handleClose2}>
               Close
             </button>
           </Modal.Footer>
@@ -222,7 +208,6 @@ const App = () => {
   return (
     <div className="App">
       {screen}
-
     </div >
   );
 }

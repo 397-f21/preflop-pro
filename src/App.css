@@ -50,8 +50,12 @@ h3,
 h4,
 h5,
 h6,
-p {
+p, label {
   color: #f3f4f3;
+}
+
+label {
+    font-size: large;
 }
 
 .DropDown {

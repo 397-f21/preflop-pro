@@ -1,5 +1,3 @@
-import { setSuit } from "../Globals";
-
 const positions = [
   ['SB', 0],
   ['BB', 1],
