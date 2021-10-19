@@ -126,7 +126,7 @@ const App = () => {
         <NextHandButton numPlayers={numPlayers} seat={seat} setSeat={setSeat} />
       </div>
       <br />
-      
+
       <div className="form-group row justify-content-center">
         <label for="numPlayers" className="col-6 col-sm-4 col-md-3 col-lg-2 col-form-label">Select Players:</label>
         <div className="col-4 col-sm-4 col-md-3 col-lg-2">
@@ -156,7 +156,7 @@ const App = () => {
       </div>
       <br />
       <h1>Action: {HandToDecision(userHand, seat)}!</h1>
-      
+
       <br />
       <Modal show={show1} onHide={handleClose1}>
         <Modal.Header>
@@ -181,7 +181,7 @@ const App = () => {
         <Modal.Header>
           <Modal.Title>App Logic</Modal.Title>
         </Modal.Header>
-        <Modal.Body>This web app assumes that the player is short-stacked in a no-ante game, with 15 blinds (or 15% of a typical buy-in). 
+        <Modal.Body>This web app assumes that the player is short-stacked in a no-ante game, with 10 big blinds (or 10% of a typical buy-in).
           Player is not guaranteed to profit based on advice, but should certainly think about folding when advised!</Modal.Body>
         <Modal.Body>If you would like to read into the charts we base the app's advice from, hit the button below.</Modal.Body>
         <Modal.Footer>
@@ -200,9 +200,10 @@ const App = () => {
         </Modal.Header>
         <Modal.Body>
 
-        <li>Play simple ABC poker. Avoid attempting to bluff and just bet when you have a strong hand.</li>
-        <li>Raise or fold: be prepared to move all of your stack in to the middle before or on the flop.</li>
-        <li>Only enter pots with premium hands: high pocket pairs, face cards, high suited connected (consecutive) cards</li>
+          <li>Play simple ABC poker. Avoid attempting to bluff and just bet when you have a strong hand.</li>
+          <li>Raise or fold: be prepared to move all of your stack in to the middle before or on the flop.</li>
+          <li>Only enter pots with premium hands: high pocket pairs, face cards, high suited connected (consecutive) cards</li>
+          <li>Take into account where you're sitting at the table. If you're first to bet, you should play more cautiously than if you are last.</li>
 
         </Modal.Body>
         <Modal.Footer>
