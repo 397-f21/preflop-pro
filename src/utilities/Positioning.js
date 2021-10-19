@@ -30,10 +30,10 @@ export const NumPlayersDropdown = ({ numPlayers, setNumPlayers, seat, setSeat })
   // onChange will need more logic. if you go from 9 players to 2, then only 2 options for positions
   // i.e. it would be bad to be "UTG" in 9-handed, and then "UTG" in 2-handed (which shouldn't happen!)
   <select className="form-select mb-1 mx-1" id={"num-players-dropdown"} value={numPlayers}
-    onChange={(e) => { 
-        setNumPlayers(e.target.value); 
-        getSeats(numPlayers).find(el => el === seat) === undefined ? setSeat("SB") : setSeat(seat)
-        }}>
+    onChange={(e) => {
+      setNumPlayers(e.target.value);
+      getSeats(numPlayers).find(el => el === seat) === undefined ? setSeat("SB") : setSeat(seat)
+    }}>
     <option value={2} key="2">2</option>
     <option value={3} key="3">3</option>
     <option value={4} key="4">4</option>
@@ -60,34 +60,34 @@ const NextHand = (numPlayers, seat) => {
 }
 
 const mod = (a, b) => (
-    ((a % b) + b) % b
+  a < 0 ? a * 1 + b * 1 : a * 1
 );
 
 const numToEnglish = new Map([
-    [1,"first"],
-    [2,"second"],
-    [3,"third"],
-    [4,"fourth"],
-    [5,"fifth"],
-    [6,"sixth"],
-    [7,"seventh"],
-    [8,"eighth"],
-    [9,"ninth"],
-    [10,"tenth"],
+  [1, "first"],
+  [2, "second"],
+  [3, "third"],
+  [4, "fourth"],
+  [5, "fifth"],
+  [6, "sixth"],
+  [7, "seventh"],
+  [8, "eighth"],
+  [9, "ninth"],
+  [10, "tenth"],
 ])
 
 export const GetNumToAct = (numPlayers, seat) => (
-    numToEnglish.get(mod(getSeats(numPlayers).findIndex(el => seat === el) - 2, numPlayers) + 1)
+  numToEnglish.get(mod(getSeats(numPlayers).findIndex(el => seat === el) - 2, numPlayers) + 1)
 );
 
 export const NextHandButton = ({ numPlayers, seat, setSeat }) => (
-    <Button variant="primary" id="next-hand" onClick={() => setSeat(NextHand(numPlayers, seat, setSeat))}>
-        Next Hand</Button>
+  <Button variant="primary" id="next-hand" onClick={() => setSeat(NextHand(numPlayers, seat, setSeat))}>
+    Next Hand</Button>
 );
 
 const genPositions = (numPlayers, seat) => (
-    numPlayers <= 6 && seat === "LJ" ?
-        "Middle Position" : positionMap.get(seat)
+  numPlayers <= 6 && seat === "LJ" ?
+    "Middle Position" : positionMap.get(seat)
 );
 
 // returns option components for PositionDropdown
